@@ -27,21 +27,26 @@ class UniformDistributionIntGenerator(DistributionGenerator):
 
 
 class BinomialDistributionGenerator(DistributionGenerator):
-    n = 0
-    p = 0
+    n = -1
+    p = -1
 
     def __init__(self, n, p):
+        if p > 1:
+            raise ValueError("p must be less or equal 1")
         self.n = n
         self.p = p
 
     def generate(self):
-        return int(numpy.random.normal(self.n*self.p, math.sqrt(self.n*self.p*(1-self.p))) + 0.5)
+        return int(numpy.random.normal(self.n * self.p, math.sqrt(self.n * self.p * (1 - self.p))) + 0.5)
 
 
 class GeometricDistributionGenerator(DistributionGenerator):
+    p = -1
 
-    def __init__(self):
-        pass
+    def __init__(self, p):
+        if p > 1:
+            raise ValueError("p must be less or equal 1")
+        self.p = p
 
     def generate(self):
-        pass
+        return int(math.log(random.random(), math.e) / math.log((1 - self.p), math.e)) + 1
