@@ -48,3 +48,11 @@ def show_density(data_set, parts=100):
     plot.show()
     plot.hist(data_set, parts, cumulative=True)
     plot.show()
+
+
+def stirling(a, b):
+    if abs(a-b)<1e-8:
+        return 1
+    if abs(b)<1e-8:
+        return 0
+    return b * stirling(a - 1, b) + stirling(a - 1, b - 1)
